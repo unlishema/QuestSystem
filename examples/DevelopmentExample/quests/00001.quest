@@ -1,0 +1,28 @@
+Setup {
+	name	:	"Test Quest 1";
+	version	:	0.1;
+	type	:	Solo;
+}
+
+Step Begin {
+	info	:	"Speak with Gertrude";
+	infoE	:	"Find \"Gertrude\" and Speak with her. She told me that you was going to be in the area today and wanted you to stop by.";
+	action	:	AddNpcText(1,"Welcome to GaveDev, [name]! Before you begin, please learn how to walk."); // Npc ID, Text
+	rule	:	TalkToNpc(1) goto LearnToWalk; // Npc ID
+}
+
+Step LearnToWalk {
+	info	:	"Walk to Marked Location";
+	infoE	:	"You can use the WASD keys to move around on the map. Navigate your way to the Marker shown on your HUD!";
+	action	:	MarkLocation(10, 10); // X Coor, Y Coor
+	rule	:	WalkToLocation(10, 10) goto Reward; // X Coor, Y Coor
+}
+
+Step Reward {
+	info	:	"Quest Complete";
+	infoE	:	"You have completed this Quest and it cannot be repeated.";
+	action	:	PlaySound(5);
+	action	:	GivePlayerEXP(150);
+	action	:	GivePlayerItem(9,15); // Item ID, Item Count
+	action	:	Finished(); // Set the Quest to Completed
+}

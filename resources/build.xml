@@ -151,7 +151,12 @@ ${line}
 	
 	
 	<target name="generate.jar">
-		<jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}" basedir="${project.bin}"/>
+		<jar jarfile="${project.tmp}/${project.name}/${folder}/${project.jar.name}" basedir="${project.bin}">
+            <manifest>
+                <attribute name="Main-Class" value="org.unlishema.questSystem.QuestSystem"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+		</jar>
 	</target>
 	
 	

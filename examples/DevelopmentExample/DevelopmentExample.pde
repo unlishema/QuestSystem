@@ -1,6 +1,6 @@
 import org.unlishema.questSystem.*;
 
-QuestSystem qs = new QuestSystem(this);
+QuestSystem qs = new QuestSystem();
 
 void setup() {
   size(500, 500);

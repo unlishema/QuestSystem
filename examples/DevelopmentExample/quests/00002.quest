@@ -1,0 +1,36 @@
+Setup {
+	name	:	"Test Quest 2";
+	version	:	0.1;
+	type	:	Party;
+}
+
+Step Begin {
+	info	:	"Speak with Bob";
+	infoE	:	"Find Bob and Speak with him. He said he has a job for you to do.";
+	action	:	AddNpcText(2,"Hello I have a quest for you and your party! Please collect 100 spider eggs and bring them back to me."); // Npc ID, Text
+	rule	:	TalkToNpc(2) goto CollectSpiderEggs; // Npc ID
+}
+
+Step CollectSpiderEggs {
+	info	:	"Collect 100 spider eggs";
+	infoE	:	"You can kill spiders to collect the eggs from them. Once you have finished collecting them all please return to Bob.";
+	rule	:	CollectPartyItems(13, 100) goto ReturnToBob;
+}
+
+Step ReturnToBob {
+	info	:	"Return to Bob";
+	infoE	:	"Find Bob and give him the 100 spider eggs you have collected. Your entire party will get a reward!";
+	action	:	AddNpcText(2,"Thanks for collecting those for me, my stock was running low and the customers really need these for their skin."); // Npc ID, Text
+	rule	:	!HasPartyItems(13, 100) goto CollectSpiderEggs; // Check to make sure we still have items.
+	rule	:	TalkToNpc(2) goto Reward; // Npc ID
+}
+
+Step Reward {
+	info	:	"Quest Complete";
+	infoE	:	"You have completed this Quest and it cannot be repeated.";
+	action	:	PlaySound(5);
+	action	:	RemovePartyItems(13,100); // Remove Items from Players
+	action	:	GivePartyEXP(150);
+	action	:	GivePartyItem(9,15); // Item ID, Item Count
+	action	:	Finished(); // Set the Quest to Completed
+}
