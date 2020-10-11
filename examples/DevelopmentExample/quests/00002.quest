@@ -2,6 +2,8 @@ Setup {
 	name	:	"Test Quest 2";
 	version	:	0.1;
 	type	:	Party;
+	trigger	:	Rule;
+	rule	:	Completed(1);
 }
 
 Step Begin {
@@ -21,7 +23,7 @@ Step ReturnToBob {
 	info	:	"Return to Bob";
 	infoE	:	"Find Bob and give him the 100 spider eggs you have collected. Your entire party will get a reward!";
 	action	:	AddNpcText(2,"Thanks for collecting those for me, my stock was running low and the customers really need these for their skin."); // Npc ID, Text
-	rule	:	!HasPartyItems(13, 100) goto CollectSpiderEggs; // Check to make sure we still have items.
+	rule	:	!CollectPartyItems(13, 100) goto CollectSpiderEggs; // Check to make sure we still have items.
 	rule	:	TalkToNpc(2) goto Reward; // Npc ID
 }
 
@@ -32,5 +34,6 @@ Step Reward {
 	action	:	RemovePartyItems(13,100); // Remove Items from Players
 	action	:	GivePartyEXP(150);
 	action	:	GivePartyItem(9,15); // Item ID, Item Count
+	action	:	Print("Quest Completed");
 	action	:	Finished(); // Set the Quest to Completed
 }
