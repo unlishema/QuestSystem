@@ -35,19 +35,17 @@ void setup() {
 		};
 		qs.registerPlayer(player);
 	
-		for (final QuestData qd : qs.getPlayerQuestData(player))
+		for (final QuestData qd : qs.getQuestDataListForPlayer(player))
 			System.out.println("Player: " + player.getPlayerID() + " Q:" + qd.id + " [" + qd.isTriggered() + "] "
 					+ qd.getCurrentStep());
-	
-		qs.startUpdateSystem();
 		
 		Thread.sleep(100);
 	
-		for (final QuestData qd : qs.getPlayerQuestData(player))
+		for (final QuestData qd : qs.getQuestDataListForPlayer(player))
 			System.out.println("Player: " + player.getPlayerID() + " Q:" + qd.id + " [" + qd.isTriggered() + "] "
 					+ qd.getCurrentStep());
 		
-		qs.stopUpdateSystem();
+		qs.exit();
 	} catch (final QuestSystemError e) {
 		e.printStackTrace();
 	} catch (InterruptedException e) {
