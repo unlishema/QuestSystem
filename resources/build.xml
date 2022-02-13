@@ -1,4 +1,4 @@
-<project name="Quest System" default="clean" basedir="../">
+<project name="Build Lib" default="clean" basedir="../">
 
     
 <!--	
